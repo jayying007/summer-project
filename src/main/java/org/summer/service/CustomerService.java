@@ -2,11 +2,13 @@ package org.summer.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.summer.helper.DatabaseHelper;
+import org.summer.framework.annotation.Service;
+import org.summer.framework.annotation.Transaction;
+import org.summer.framework.bean.FileParam;
+import org.summer.framework.helper.DatabaseHelper;
+import org.summer.framework.helper.UploadHelper;
 import org.summer.model.Customer;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import java.util.Map;
  * @author ZhuangJieYing
  * @date 2020/12/21
  */
+@Service
 public class CustomerService {
     private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
@@ -34,14 +37,30 @@ public class CustomerService {
         return DatabaseHelper.queryEntity(Customer.class, sql);
     }
 
-    public boolean createCustomer(Map<String, Object> fieldMap) {
-        return DatabaseHelper.insertEntity(Customer.class, fieldMap);
+    /**
+     * 创建客户
+     */
+    @Transaction
+    public boolean createCustomer(Map<String, Object> fieldMap, FileParam fileParam) {
+        boolean result = DatabaseHelper.insertEntity(Customer.class, fieldMap);
+        if (result) {
+            UploadHelper.uploadFile("/tmp/upload/", fileParam);
+        }
+        return result;
     }
 
+    /**
+     * 更新客户
+     */
+    @Transaction
     public boolean updateCustomer(long id, Map<String, Object> fieldMap) {
         return DatabaseHelper.updateEntity(Customer.class, id, fieldMap);
     }
 
+    /**
+     * 删除客户
+     */
+    @Transaction
     public boolean deleteCustomer(long id) {
         return DatabaseHelper.deleteEntity(Customer.class, id);
     }

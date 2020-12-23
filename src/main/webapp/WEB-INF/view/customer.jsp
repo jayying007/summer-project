@@ -1,23 +1,25 @@
-<%--
-  User: ZhuangJieYing
-  Date: 2020/12/21
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="BASE" value="${pageContext.request.contextPath}" />
+
+<c:set var="BASE" value="${pageContext.request.contextPath}"/>
+
 <html>
 <head>
     <title>客户管理</title>
 </head>
 <body>
-<h1>客户列表</h1>
+
+<h1><a href="${BASE}/">首页</a> / 客户列表</h1>
+
+<h2><a href="${BASE}/customer_create">创建客户</a></h2>
+
 <table>
     <tr>
-        <td>客户名称</td>
-        <td>联系人</td>
-        <td>电话号码</td>
-        <td>邮箱地址</td>
-        <td>操作</td>
+        <th>客户名称</th>
+        <th>联系人</th>
+        <th>电话号码</th>
+        <th>邮箱地址</th>
+        <th>操作</th>
     </tr>
     <c:forEach var="customer" items="${customerList}">
         <tr>

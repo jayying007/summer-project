@@ -3,7 +3,7 @@ package org.summer.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.summer.helper.DatabaseHelper;
+import org.summer.framework.helper.DatabaseHelper;
 import org.summer.model.Customer;
 
 import java.util.HashMap;
@@ -46,7 +46,7 @@ public class CustomerServiceTest {
         fieldMap.put("name", "customer100");
         fieldMap.put("contact", "Join");
         fieldMap.put("telephone", "13534567890");
-        boolean result = customerService.createCustomer(fieldMap);
+        boolean result = customerService.createCustomer(fieldMap, null);
         Assert.assertTrue(result);
     }
 
